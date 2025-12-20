@@ -1,145 +1,208 @@
-import { Metadata } from 'next';
-import HeroSection from '@/components/sections/header-section';
-import FadeIn from '@/components/animations/fade-in';
-import { ArrowUpRight, CheckCircle2, Target, Briefcase, Zap, ArrowRight } from 'lucide-react';
+"use client";
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { 
+  Brain, Users, GraduationCap, ArrowRight, 
+  Sparkles, Quote, ChevronDown, MoveUpRight 
+} from 'lucide-react';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title: 'MindCare Consulting | L\'Humain au Cœur de la Performance',
-  description: 'Cabinet d\'expertise en psychologie du travail, ressources humaines et ingénierie de formation.',
+// --- COMPOSANT PARALLAX INTERNE ---
+const ParallaxElement = ({ children, distance = 50, className = "" }: any) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [0, distance]);
+  const springY = useSpring(y, { stiffness: 100, damping: 30 });
+
+  return (
+    <motion.div ref={ref} style={{ y: springY }} className={className}>
+      {children}
+    </motion.div>
+  );
 };
 
 export default function HomePage() {
+  const containerRef = useRef(null);
+
   return (
-    <main className="bg-[#FDFCFB] text-[#0F172A] selection:bg-blue-100 overflow-x-hidden">
-   
-
-      {/* 2. BENTO GRID : L'Expertise structurée */}
-      <section id="expertises" className="max-w-7xl mx-auto px-6 py-24 md:py-32">
-        <FadeIn direction="up">
-          <div className="mb-20">
-            <h2 className="text-sm uppercase tracking-[0.4em] text-[#E2725B] font-bold mb-6">Expertises</h2>
-            <p className="text-4xl md:text-7xl font-serif font-medium max-w-4xl leading-[1.05] tracking-tight">
-              Une ingénierie humaine pour des organisations <span className="italic text-slate-400">résilientes</span>.
-            </p>
-          </div>
-        </FadeIn>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-full md:h-[800px]">
-          
-          {/* Bloc Psychologie : L'Immersion */}
-          <div className="md:col-span-2 md:row-span-2 bg-slate-900 rounded-[3.5rem] p-12 text-white flex flex-col justify-between group cursor-pointer relative overflow-hidden shadow-2xl transition-all duration-700 hover:shadow-blue-900/20">
-            <div className="relative z-10">
-              <div className="w-16 h-16 bg-white/5 backdrop-blur-2xl rounded-2xl flex items-center justify-center mb-10 group-hover:bg-blue-600 group-hover:rotate-6 transition-all duration-500">
-                <Zap className="text-blue-400 group-hover:text-white w-8 h-8" />
-              </div>
-              <h3 className="text-4xl md:text-5xl font-serif mb-8 leading-tight">Psychologie & <br/>Intervention</h3>
-              <p className="text-slate-400 text-xl max-w-sm leading-relaxed font-light">
-                Diagnostic systémique et prise en charge des dynamiques organisationnelles pour stabiliser votre capital humain.
-              </p>
-            </div>
+    <main ref={containerRef} className="bg-[#FAF9F6] text-[#1A2F4B] selection:bg-[#C5D3E2] overflow-x-hidden font-sans">
+      
+      {/* 1. HERO SECTION : L'ÉVEIL (PASSION & SÉRÉNITÉ) */}
+      <section className="relative min-h-screen flex flex-col justify-center px-6 overflow-hidden">
+        {/* Cercles de lumière "Dusk" (Bleu tombée de nuit très doux) */}
+        <div className="absolute top-[-10%] left-[10%] w-[60vw] h-[60vw] bg-[#E8EEF5] rounded-full blur-[140px] opacity-60" />
+        
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="inline-flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.5em] text-[#6B8BA4] mb-12">
+              <span className="w-8 h-[1px] bg-[#6B8BA4]" /> MindCare Consulting
+            </span>
             
-            <Link href="/expertises/psychologie" className="relative z-10 flex items-center gap-3 font-bold text-sm tracking-widest group-hover:gap-6 transition-all uppercase">
-              Découvrir l'approche <ArrowUpRight className="w-5 h-5 text-blue-400" />
-            </Link>
+            <h1 className="text-[10vw] md:text-[8vw] font-serif italic leading-[0.85] tracking-tighter text-[#1A2F4B] mb-16">
+              L'Humain au <br/>
+              <span className="text-[#6B8BA4] not-italic font-light">Service de l'Efficacité.</span>
+            </h1>
 
-            {/* Background Glow interactif */}
-            <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] group-hover:bg-blue-600/30 transition-all duration-700" />
-          </div>
-
-          {/* Bloc RH : Modernité & Stratégie */}
-          <div className="md:col-span-2 bg-emerald-50 rounded-[3.5rem] p-12 flex flex-col justify-between hover:shadow-xl transition-all duration-500 border border-emerald-100 group">
-            <div>
-              <div className="flex justify-between items-start">
-                <h3 className="text-3xl font-bold text-emerald-950 tracking-tight">Ressources Humaines</h3>
-                <span className="bg-emerald-200/50 text-emerald-700 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] animate-pulse">Performance</span>
+            <div className="grid md:grid-cols-12 gap-12 items-end">
+              <div className="md:col-span-6">
+                <p className="text-xl md:text-2xl text-[#5A6D81] leading-relaxed font-light max-w-xl">
+                  Cabinet d'expertise dédié au <span className="text-[#1A2F4B] font-medium border-b border-[#6B8BA4]/30">développement des compétences</span> humaines et organisationnelles.
+                </p>
               </div>
-              <p className="text-emerald-900/70 mt-6 text-lg max-w-md leading-relaxed">Recrutement prédictif, gestion des compétences et audit climat social.</p>
+              <div className="md:col-span-6 flex md:justify-end gap-8">
+                <Link href="/contact" className="group relative flex items-center gap-4 text-sm font-bold tracking-widest uppercase py-4">
+                  Démarrer l'immersion
+                  <div className="w-12 h-12 rounded-full border border-[#1A2F4B]/10 flex items-center justify-center group-hover:bg-[#1A2F4B] group-hover:text-white transition-all duration-500">
+                    <ArrowRight className="w-5 h-5" />
+                  </div>
+                </Link>
+              </div>
             </div>
-            <div className="flex gap-6 mt-8">
-              {['Recrutement', 'Compétences', 'Audit'].map((tag, i) => (
-                <span key={tag} className="text-sm font-bold text-emerald-800/40 group-hover:text-emerald-600 transition-colors duration-500 underline underline-offset-8 decoration-emerald-200">
-                  {tag}
-                </span>
-              ))}
+          </motion.div>
+        </div>
+
+        {/* Parallax Shape: Un "cerveau" abstrait très léger en fond */}
+        <ParallaxElement distance={-150} className="absolute top-1/2 right-[-5%] opacity-[0.03] pointer-events-none">
+          <Brain size={600} strokeWidth={0.5} />
+        </ParallaxElement>
+      </section>
+
+      {/* 2. LE MANIFESTE (SCROLL-TRIGGERED DEPTH) */}
+      <section className="py-40 bg-white relative">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <ParallaxElement distance={-60}>
+            <Quote className="w-12 h-12 text-[#E8EEF5] mx-auto mb-12" />
+            <h2 className="text-3xl md:text-5xl font-serif italic text-[#1A2F4B] leading-snug tracking-tight">
+              "Nous croyons fermement que la clé du succès réside dans l’harmonie entre les individus et leur environnement de travail."
+            </h2>
+            <div className="mt-16 flex flex-col items-center">
+              <div className="w-px h-24 bg-gradient-to-b from-[#6B8BA4] to-transparent" />
+              <p className="mt-8 text-[10px] font-black uppercase tracking-[0.4em] text-[#6B8BA4]">Notre Philosophie</p>
             </div>
+          </ParallaxElement>
+        </div>
+      </section>
+
+      {/* 3. LES DOMAINES D'ACTIVITÉ (SMOOTH BENTO) */}
+      <section className="py-40 px-6">
+        <div className="max-w-[100rem] mx-auto">
+          <div className="flex items-end justify-between mb-24 border-b border-[#1A2F4B]/5 pb-12">
+            <h2 className="text-5xl font-serif tracking-tighter italic text-[#1A2F4B]">Nos Domaines.</h2>
+            <span className="text-[#6B8BA4] font-mono text-sm tracking-widest uppercase">Expertise / 01 — 06</span>
           </div>
 
-          {/* Bloc Formation : Impact Visuel */}
-          <div className="bg-[#FEF3E2] rounded-[3.5rem] p-8 flex flex-col items-center justify-center text-center group hover:bg-[#fae8cc] transition-all duration-500 border border-orange-100 shadow-sm">
-             <div className="text-[#D97706] font-serif text-7xl mb-3 group-hover:scale-110 transition-transform duration-500 font-bold tracking-tighter">50+</div>
-             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#92400E]/60 group-hover:text-[#92400E] transition-colors">Modules de Formation</p>
-          </div>
-
-          {/* Bloc Études : Scientifique & Propre */}
-          <div className="bg-blue-50 rounded-[3.5rem] p-10 flex flex-col justify-between hover:bg-white transition-all duration-500 border border-blue-100 group shadow-sm">
-             <h3 className="text-2xl font-bold text-blue-950 group-hover:translate-x-1 transition-transform">Études & <br/>Évaluation</h3>
-             <div className="flex items-center justify-between mt-4">
-                <div className="flex -space-x-3">
-                  {[1,2,3,4].map(i => (
-                    <div key={i} className="w-10 h-10 rounded-full border-4 border-white bg-blue-200 group-hover:translate-x-1 transition-transform" style={{ transitionDelay: `${i * 50}ms` }} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Carte 01 - Psychologie */}
+            <div className="group relative bg-[#F4F7FA] rounded-[3rem] p-12 h-[600px] flex flex-col justify-between overflow-hidden transition-all duration-700 hover:shadow-2xl hover:shadow-[#E8EEF5]">
+               <div className="relative z-10">
+                  <div className="flex justify-between items-start mb-12">
+                    <span className="text-xs font-black text-[#6B8BA4] tracking-widest">01 /</span>
+                    <Brain className="w-8 h-8 text-[#1A2F4B] group-hover:rotate-12 transition-transform duration-500" />
+                  </div>
+                  <h3 className="text-4xl font-serif mb-6 text-[#1A2F4B]">Psychologie & <br/>Intervention</h3>
+                  <p className="text-[#5A6D81] font-light leading-relaxed max-w-[250px]">Diagnostic systémique et prise en charge des dynamiques organisationnelles.</p>
+               </div>
+               <div className="relative z-10 flex flex-wrap gap-2">
+                  {["RPS", "Ergonomie", "Soutien"].map(tag => (
+                    <span key={tag} className="px-4 py-2 bg-white rounded-full text-[10px] font-bold uppercase tracking-widest text-[#6B8BA4]">{tag}</span>
                   ))}
-                </div>
-                <ArrowRight className="text-blue-300 group-hover:text-blue-600 transition-colors" />
-             </div>
+               </div>
+               {/* Image Parallax subtile en fond de carte */}
+               <ParallaxElement distance={40} className="absolute bottom-[-10%] right-[-10%] opacity-10 text-[#1A2F4B]">
+                  <Brain size={300} strokeWidth={1} />
+               </ParallaxElement>
+            </div>
+
+            {/* Carte 02 - RH (Le contraste smoth) */}
+            <div className="group bg-[#1A2F4B] rounded-[3rem] p-12 h-[600px] flex flex-col justify-between overflow-hidden text-white transition-all duration-700 md:mt-12 shadow-xl">
+               <div className="relative z-10">
+                  <div className="flex justify-between items-start mb-12 text-[#6B8BA4]">
+                    <span className="text-xs font-black tracking-widest uppercase">02 /</span>
+                    <Users className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-4xl font-serif mb-6 leading-tight">Ressources <br/>Humaines</h3>
+                  <p className="text-[#A5B9CC] font-light leading-relaxed">Recrutement prédictif et ingénierie de la gestion des compétences.</p>
+               </div>
+               <Link href="/expertises/rh" className="flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] group-hover:gap-8 transition-all">
+                  Explorer le pôle <MoveUpRight size={16} />
+               </Link>
+            </div>
+
+            {/* Carte 03 - Formation */}
+            <div className="group bg-white border border-[#E8EEF5] rounded-[3rem] p-12 h-[600px] flex flex-col justify-between overflow-hidden transition-all duration-700 hover:border-[#6B8BA4]/30">
+               <div className="relative z-10">
+                  <div className="flex justify-between items-start mb-12 text-[#6B8BA4]">
+                    <span className="text-xs font-black tracking-widest uppercase">03 /</span>
+                    <GraduationCap className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-4xl font-serif mb-6 leading-tight text-[#1A2F4B]">Ingénierie de <br/>Formation</h3>
+                  <p className="text-[#5A6D81] font-light leading-relaxed">Analyse des besoins et conception de dispositifs sur-mesure pour libérer le potentiel.</p>
+               </div>
+               <div className="text-6xl font-serif text-[#F4F7FA] font-bold group-hover:text-[#E8EEF5] transition-colors duration-500">
+                  50+ Themes
+               </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 3. SECTION TARGET : Staggered Cards */}
-      <section className="py-32 bg-white border-y border-slate-100 relative">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-16">
-          {[
-            { icon: <Target />, title: "Pour les Dirigeants", desc: "Alignez votre stratégie humaine avec vos objectifs de croissance durable." },
-            { icon: <Briefcase />, title: "Pour les RH", desc: "Externalisez vos diagnostics RPS et optimisez vos processus de recrutement." },
-            { icon: <CheckCircle2 />, title: "Pour les Managers", desc: "Développez un leadership authentique et gérez les personnalités difficiles." }
-          ].map((item, idx) => (
-            <FadeIn key={idx} delay={idx * 0.1} direction="up">
-              <div className="group space-y-6">
-                <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all duration-500 group-hover:-translate-y-2 shadow-sm">
-                  {item.icon}
-                </div>
-                <h4 className="text-2xl font-bold tracking-tight">{item.title}</h4>
-                <p className="text-slate-500 leading-relaxed text-lg">{item.desc}</p>
-              </div>
-            </FadeIn>
-          ))}
+      {/* 4. THEMES CLOUD (L'ASPECT PASSIONNÉ) */}
+      <section className="py-40 bg-[#1A2F4B] text-white relative overflow-hidden">
+        {/* Grain de texture overlay */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+           <div className="text-center mb-32">
+              <h2 className="text-5xl md:text-7xl font-serif italic mb-8">Libérez les talents.</h2>
+              <p className="text-[#A5B9CC] text-xl font-light">Des thématiques conçues pour transformer la culture d'entreprise.</p>
+           </div>
+
+           <div className="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
+              {[
+                "Communication Non-Violente", "Gestion du Stress", "Burnout", "Leadership", 
+                "Motivation", "Assertivité", "Gestion du Temps", "Confiance en Soi",
+                "Négociation", "Vente", "Intelligence Émotionnelle", "Coaching"
+              ].map((theme, i) => (
+                <ParallaxElement key={theme} distance={i % 2 === 0 ? 20 : -20}>
+                  <motion.div 
+                    whileHover={{ scale: 1.05, backgroundColor: "#6B8BA4" }}
+                    className="px-8 py-4 border border-white/10 rounded-full text-sm font-bold uppercase tracking-widest backdrop-blur-sm transition-all cursor-pointer"
+                  >
+                    {theme}
+                  </motion.div>
+                </ParallaxElement>
+              ))}
+           </div>
         </div>
       </section>
 
-      {/* 4. SECTION PASSION : Manifeste Premium */}
-      <section className="bg-slate-950 py-40 relative overflow-hidden">
-          <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
-            <FadeIn direction="none" delay={0.2}>
-              <blockquote className="text-4xl md:text-7xl font-serif italic leading-[1.1] text-white/90 tracking-tight">
-                "Nous croyons que la clé du succès réside dans l'harmonie entre <span className="text-blue-500 relative inline-block">l'individu<span className="absolute bottom-2 left-0 w-full h-[2px] bg-blue-500/30"></span></span> et son environnement de travail."
-              </blockquote>
-              <div className="mt-20 flex flex-col items-center">
-                <div className="w-px h-20 bg-gradient-to-b from-blue-500 to-transparent mb-8"></div>
-                <p className="text-blue-500 font-mono text-[10px] uppercase tracking-[0.5em] font-bold">MindCare Philosophy</p>
-              </div>
-            </FadeIn>
-          </div>
+      {/* 5. CTA FINAL (SMOOTH CLOSING) */}
+      <section className="py-60 relative flex flex-col items-center justify-center text-center">
+        <ParallaxElement distance={-40}>
+          <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#6B8BA4] mb-12 block">Prêt pour l'étape d'après ?</span>
+          <h2 className="text-6xl md:text-[8vw] font-serif text-[#1A2F4B] italic leading-none mb-20 tracking-tighter">
+            Construisons l'<span className="not-italic">Harmonie.</span>
+          </h2>
           
-          {/* Grain & Glow Background */}
-          <div className="absolute inset-0 opacity-[0.15] pointer-events-none mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[140px]" />
+          <Link href="/contact" className="group relative inline-flex items-center gap-8 bg-[#1A2F4B] text-white px-16 py-8 rounded-full transition-all hover:bg-[#6B8BA4] shadow-2xl">
+            <span className="text-xl font-bold tracking-tight">Nous contacter</span>
+            <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center group-hover:translate-x-4 transition-transform">
+              <ArrowRight />
+            </div>
+          </Link>
+          
+          <div className="mt-16 flex items-center gap-4 text-[#6B8BA4] font-medium italic">
+             <span className="w-12 h-px bg-[#E8EEF5]" /> 
+             Discutons au 70 81 39 78
+             <span className="w-12 h-px bg-[#E8EEF5]" />
+          </div>
+        </ParallaxElement>
       </section>
 
-      {/* 5. FINAL CTA : Conversion Magnétique */}
-      <section className="py-32 text-center bg-[#FDFCFB]">
-        <FadeIn direction="up">
-          <h2 className="text-5xl md:text-6xl font-serif mb-12 tracking-tight">Prêt à transformer votre organisation ?</h2>
-          <Link href="/contact" 
-            className="group relative inline-flex items-center gap-4 bg-slate-900 text-white px-12 py-6 rounded-full font-bold text-lg transition-all duration-300 hover:bg-blue-600 hover:ring-8 hover:ring-blue-600/10 active:scale-95 shadow-2xl">
-            Lancer un diagnostic gratuit 
-            <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
-          </Link>
-          <p className="mt-10 text-slate-400 font-medium">
-            Ou échangez avec un expert au <span className="text-slate-900 font-bold decoration-blue-500 underline underline-offset-4 cursor-pointer">70 81 39 78</span>
-          </p>
-        </FadeIn>
-      </section>
     </main>
   );
 }
