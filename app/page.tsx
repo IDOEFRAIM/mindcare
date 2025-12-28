@@ -127,7 +127,7 @@ export default function HomePage() {
                   <h3 className="text-4xl font-serif mb-6 leading-tight">Ressources <br/>Humaines</h3>
                   <p className="text-[#A5B9CC] font-light leading-relaxed">Recrutement prédictif et ingénierie de la gestion des compétences.</p>
                </div>
-               <Link href="/expertises/rh" className="flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] group-hover:gap-8 transition-all">
+               <Link href="/expertise/rh" className="flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] group-hover:gap-8 transition-all">
                   Explorer le pôle <MoveUpRight size={16} />
                </Link>
             </div>
