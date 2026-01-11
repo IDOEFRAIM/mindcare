@@ -163,7 +163,7 @@ export default function ExpertisesPage() {
           </h2>
           
           <Link 
-          href="https://wa.me/+2267801479800" 
+          href="https://wa.me/+22670813978"
            className="group relative px-16 py-8 bg-[#1A2F4B] text-white rounded-full overflow-hidden transition-all hover:pr-24 shadow-2xl shadow-[#1A2F4B]/20">
             <span className="relative z-10 text-xl font-bold tracking-tight">Demander un diagnostic gratuit</span>
             <ArrowRight className="absolute right-8 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all" />

@@ -66,7 +66,7 @@ export default function Header() {
         {/* CTA & MOBILE TOGGLE */}
         <div className="flex items-center gap-4">
           <Link 
-            href="https://wa.me/+2267801479800"  
+            href="https://wa.me/+22670813978"  
             className="hidden md:flex items-center gap-2 bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-blue-600 transition-all shadow-md active:scale-95"
           >
             Parlons de votre projet <ArrowRight className="w-4 h-4" />

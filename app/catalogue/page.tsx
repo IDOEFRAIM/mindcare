@@ -149,7 +149,7 @@ export default function CataloguePage() {
                   </div>
                   
                   <Link 
-                    href="https://wa.me/+2267801479800" 
+                    href="https://wa.me/+22670813978"
                     className="w-full flex items-center justify-between group/btn text-[#1A2F4B] font-bold text-xs uppercase tracking-[0.2em]"
                   >
                     Découvrir le programme 
@@ -176,7 +176,7 @@ export default function CataloguePage() {
               <span className="text-[#6B8BA4] not-italic font-light">entièrement sur-mesure.</span>
             </p>
             <Link 
-            href="https://wa.me/+2267801479800" 
+            href="https://wa.me/+22670813978"
              className="mt-12 inline-block text-[10px] font-black uppercase tracking-[0.4em] text-[#1A2F4B] border-b border-[#1A2F4B] pb-2">
               Parlons de votre projet
             </Link>

@@ -52,7 +52,7 @@ export default function Header() {
         <div className="flex items-center gap-4">
           <Link
           target='_blank'
-           href="https:wa.me//+22601479800" className="hidden md:flex items-center gap-2 bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-blue-600 transition-all active:scale-95 shadow-lg shadow-slate-200">
+           href="https://wa.me/+22670813978" className="hidden md:flex items-center gap-2 bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-blue-600 transition-all active:scale-95 shadow-lg shadow-slate-200">
             Parlons-en <ArrowRight className="w-4 h-4" />
           </Link>
           <button className="md:hidden p-2 text-slate-900" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
