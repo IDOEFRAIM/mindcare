@@ -200,7 +200,7 @@ export default function FormationDetail() {
                   <ShieldCheck />
                 </div>
                 <p className="text-[10px] font-bold text-[#1A2F4B] uppercase tracking-widest leading-relaxed">
-                  Programme certifié conforme <br/> aux exigences de qualité MindCare.
+                contact@mindcare-consulting.com  Programme certifié conforme <br/> aux exigences de qualité MindCare.
                 </p>
               </div>
             </aside>

@@ -54,7 +54,9 @@ export default function HomePage() {
                 </p>
               </div>
               <div className="md:col-span-6 flex md:justify-end gap-8">
-                <Link href="/contact" className="group relative flex items-center gap-4 text-sm font-bold tracking-widest uppercase py-4">
+                <Link 
+                href="https://wa.me/+2267801479800" 
+                 className="group relative flex items-center gap-4 text-sm font-bold tracking-widest uppercase py-4">
                   Démarrer l'immersion
                   <div className="w-12 h-12 rounded-full border border-[#1A2F4B]/10 flex items-center justify-center group-hover:bg-[#1A2F4B] group-hover:text-white transition-all duration-500">
                     <ArrowRight className="w-5 h-5" />
@@ -188,7 +190,9 @@ export default function HomePage() {
             Construisons l'<span className="not-italic">Harmonie.</span>
           </h2>
           
-          <Link href="/contact" className="group relative inline-flex items-center gap-8 bg-[#1A2F4B] text-white px-16 py-8 rounded-full transition-all hover:bg-[#6B8BA4] shadow-2xl">
+          <Link 
+          href="https://wa.me/+2267801479800" 
+           className="group relative inline-flex items-center gap-8 bg-[#1A2F4B] text-white px-16 py-8 rounded-full transition-all hover:bg-[#6B8BA4] shadow-2xl">
             <span className="text-xl font-bold tracking-tight">Nous contacter</span>
             <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center group-hover:translate-x-4 transition-transform">
               <ArrowRight />

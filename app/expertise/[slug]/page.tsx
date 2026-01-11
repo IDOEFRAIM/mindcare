@@ -141,7 +141,7 @@ export default function ExpertiseDetail() {
                 </p>
                 
                 <Link 
-                  href="/contact"
+                  href="https://wa.me/+2267801479800" 
                   className="w-full inline-flex items-center justify-center gap-4 bg-[#1A2F4B] text-white py-6 rounded-2xl font-bold hover:bg-[#6B8BA4] transition-all shadow-2xl shadow-[#1A2F4B]/10"
                 >
                   Planifier une intervention <ArrowRight className="w-4 h-4" />
@@ -150,7 +150,9 @@ export default function ExpertiseDetail() {
               
               <div className="px-12 py-8 bg-[#E8EEF5]/40 rounded-[2rem] flex items-center justify-between">
                 <span className="text-sm font-bold text-[#1A2F4B]">Besoin d'un devis ?</span>
-                <Link href="/contact" className="text-[#6B8BA4] hover:text-[#1A2F4B] transition-colors">
+                <Link 
+                href="https://wa.me/+2267801479800" 
+                 className="text-[#6B8BA4] hover:text-[#1A2F4B] transition-colors">
                   <ArrowRight />
                 </Link>
               </div>

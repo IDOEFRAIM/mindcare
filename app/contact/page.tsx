@@ -5,12 +5,43 @@ import { Mail, Phone, MapPin, Send, MessageSquare, ArrowRight, CheckCircle } fro
 import FadeIn from '@/components/animations/fade-in';
 
 export default function ContactPage() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [form, setForm] = useState({
+    name: '',
+    company: '',
+    need: 'Diagnostic Psychosocial (RPS)',
+    message: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Logique d'envoi (Resend, Formspree, etc.)
-    setIsSubmitted(true);
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setIsSubmitted(true);
+        setForm({ name: '', company: '', need: 'Diagnostic Psychosocial (RPS)', message: '' });
+      } else {
+        setError(data.error || 'Erreur lors de l\'envoi.');
+      }
+    } catch (err) {
+      setError('Erreur serveur.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -64,17 +95,37 @@ export default function ContactPage() {
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <label className="text-xs font-bold uppercase tracking-widest text-slate-400 ml-2">Nom Complet</label>
-                        <input type="text" required className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-600/20 transition-all outline-none text-slate-900" placeholder="Jean Dupont" />
+                        <input
+                          type="text"
+                          name="name"
+                          required
+                          className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-600/20 transition-all outline-none text-slate-900"
+                          placeholder="Jean Dupont"
+                          value={form.name}
+                          onChange={handleChange}
+                        />
                       </div>
                       <div className="space-y-2">
                         <label className="text-xs font-bold uppercase tracking-widest text-slate-400 ml-2">Entreprise</label>
-                        <input type="text" className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-600/20 transition-all outline-none text-slate-900" placeholder="Nom de votre structure" />
+                        <input
+                          type="text"
+                          name="company"
+                          className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-600/20 transition-all outline-none text-slate-900"
+                          placeholder="Nom de votre structure"
+                          value={form.company}
+                          onChange={handleChange}
+                        />
                       </div>
                     </div>
 
                     <div className="space-y-2">
                       <label className="text-xs font-bold uppercase tracking-widest text-slate-400 ml-2">Votre besoin</label>
-                      <select className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-600/20 transition-all outline-none text-slate-900 appearance-none">
+                      <select
+                        name="need"
+                        className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-600/20 transition-all outline-none text-slate-900 appearance-none"
+                        value={form.need}
+                        onChange={handleChange}
+                      >
                         <option>Diagnostic Psychosocial (RPS)</option>
                         <option>Formation Catalogue</option>
                         <option>Audit RH / Recrutement</option>
@@ -84,11 +135,25 @@ export default function ContactPage() {
 
                     <div className="space-y-2">
                       <label className="text-xs font-bold uppercase tracking-widest text-slate-400 ml-2">Message</label>
-                      <textarea rows={4} required className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-600/20 transition-all outline-none text-slate-900 resize-none" placeholder="Comment pouvons-nous vous aider ?"></textarea>
+                      <textarea
+                        rows={4}
+                        name="message"
+                        required
+                        className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-600/20 transition-all outline-none text-slate-900 resize-none"
+                        placeholder="Comment pouvons-nous vous aider ?"
+                        value={form.message}
+                        onChange={handleChange}
+                      ></textarea>
                     </div>
 
-                    <button type="submit" className="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold text-lg hover:bg-blue-600 transition-all shadow-xl flex items-center justify-center gap-3 group">
-                      Envoyer ma demande <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    {error && <div className="text-red-500 text-sm">{error}</div>}
+
+                    <button
+                      type="submit"
+                      className="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold text-lg hover:bg-blue-600 transition-all shadow-xl flex items-center justify-center gap-3 group disabled:opacity-60"
+                      disabled={loading}
+                    >
+                      {loading ? 'Envoi en cours...' : (<><span>Envoyer ma demande</span> <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></>)}
                     </button>
                   </form>
                 ) : (

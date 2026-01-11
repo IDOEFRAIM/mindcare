@@ -124,7 +124,7 @@ export default function AboutPage() {
                   Chaque projet est unique. Nous commençons toujours par une phase d'écoute active pour comprendre vos enjeux spécifiques.
                 </p>
                 <Link 
-                  href="https://wa.me/+22601479800" 
+                  href="https://wa.me/+2267801479800" 
                   className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-full font-bold hover:bg-blue-600 transition-all"
                 >
                   Demander un entretien <ArrowRight className="w-4 h-4" />
